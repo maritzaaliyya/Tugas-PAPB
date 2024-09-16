@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ProjectComposeD"
+rootProject.name = "PAPB_Praktikum"
 include(":app")
