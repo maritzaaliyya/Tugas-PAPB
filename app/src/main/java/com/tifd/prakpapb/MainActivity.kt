@@ -46,6 +46,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
 import com.tifd.projectcomposed.R
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.input.pointer.pointerInteropFilter
+import android.view.MotionEvent
+import androidx.compose.ui.ExperimentalComposeUiApi
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,14 +67,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun MyScreen() {
     var name by remember { mutableStateOf("") }
     var inputName by remember { mutableStateOf("") }
     var nim by remember { mutableStateOf("") }
     var inputNim by remember { mutableStateOf("") }
-    var submitStatus by remember { mutableStateOf("null") } // State variable to track submission
+    var submitStatus by remember { mutableStateOf("null") }
 
     Scaffold(
         topBar = {
@@ -100,14 +104,19 @@ fun MyScreen() {
                     fontSize = 20.sp
                 )
                 GreetingImage()
-                if (submitStatus=="true") {
-                    Text(text = "\"NIM kamu $nim? Baik, salam kenal, $name\"",
-                        textAlign = TextAlign.Center)
-                } else if (submitStatus=="false") {
-                    Text(text="Tolong masukkan nama dan NIM yang valid.", color = Color.Red)
+                if (submitStatus == "true") {
+                    Text(
+                        text = "\"NIM kamu $nim? Baik, salam kenal, $name\"",
+                        textAlign = TextAlign.Center
+                    )
+                } else if (submitStatus == "false") {
+                    Text(
+                        text = "Tolong masukkan nama dan NIM yang valid.",
+                        color = Color.Red
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Row (
+                Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -120,15 +129,15 @@ fun MyScreen() {
                     Spacer(modifier = Modifier.width(8.dp))
                     OutlinedTextField(
                         value = inputName,
-                        onValueChange = { inputName = it},
-                        label = { Text("Masukkan nama")},
+                        onValueChange = { inputName = it },
+                        label = { Text("Masukkan nama") },
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp)
                     )
                 }
-                Row (
+                Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -141,8 +150,8 @@ fun MyScreen() {
                     Spacer(modifier = Modifier.width(8.dp))
                     OutlinedTextField(
                         value = inputNim,
-                        onValueChange = { inputNim = it},
-                        label = { Text("Masukkan NIM")},
+                        onValueChange = { inputNim = it },
+                        label = { Text("Masukkan NIM") },
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxWidth(),
@@ -150,16 +159,19 @@ fun MyScreen() {
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = {
-                    if (inputNim.isDigitsOnly()) {
-                        name = inputName
-                        nim = inputNim
-                        submitStatus = "true"
-                    }
-                    else {
-                        submitStatus = "false"
-                    }
-                }) {
+                Button(
+                    onClick = {
+                        if (inputName.isNotBlank() && inputNim.isDigitsOnly()) {
+                            name = inputName
+                            nim = inputNim
+                            submitStatus = "true"
+                        } else {
+                            submitStatus = "false"
+                        }
+                    },
+                    enabled = inputName.isNotBlank() && inputNim.isNotBlank()
+
+                ) {
                     Text("Submit")
                 }
             }
