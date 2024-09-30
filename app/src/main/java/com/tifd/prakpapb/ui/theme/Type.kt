@@ -1,4 +1,4 @@
-package com.tifd.projectcomposed.ui.theme
+package com.tifd.prakpapb.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
