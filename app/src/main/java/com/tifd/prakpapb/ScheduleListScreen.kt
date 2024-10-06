@@ -1,5 +1,6 @@
 package com.tifd.prakpapb.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.tifd.prakpapb.R
 import com.tifd.prakpapb.dummySchedule
 import com.tifd.prakpapb.Schedule
 import com.tifd.prakpapb.ui.theme.PrakPAPBTheme
@@ -28,7 +31,6 @@ fun ScheduleListScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .background(Color.White)
         ) {
-            // Top app bar with back button
             TopAppBar(
                 title = { Text("Schedule List") },
                 navigationIcon = {
@@ -36,13 +38,17 @@ fun ScheduleListScreen(navController: NavHostController) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
+                actions = {
+                    // Pass navController to GithubImage to navigate to GithubProfileScreen
+                    GithubImage(navController)
+                },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                ),
             )
+
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Using LazyColumn to display schedules
             LazyColumn(
                 contentPadding = PaddingValues(vertical = 8.dp, horizontal = 8.dp),
                 modifier = Modifier.fillMaxSize()
@@ -61,9 +67,9 @@ fun ScheduleCard(schedule: Schedule) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* Handle card click here if needed */ },
+            .clickable {},
         shape = RoundedCornerShape(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp) // Correct way to specify elevation
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
             modifier = Modifier
@@ -79,4 +85,20 @@ fun ScheduleCard(schedule: Schedule) {
             Text(text = "Dosen: ${schedule.dosen}", style = MaterialTheme.typography.bodySmall)
         }
     }
+}
+
+// Modify GithubImage to include onClick navigation logic
+@Composable
+fun GithubImage(navController: NavHostController) {
+    val image = painterResource(R.drawable.github_logo)
+    Image(
+        painter = image,
+        contentDescription = null,
+        modifier = Modifier
+            .size(48.dp)
+            .clickable {
+                // Navigate to GithubProfileScreen when the icon is clicked
+                navController.navigate("github_profile")
+            }
+    )
 }

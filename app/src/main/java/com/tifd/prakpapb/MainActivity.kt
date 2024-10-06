@@ -44,26 +44,9 @@ class MainActivity : ComponentActivity() {
                         })
                     }
                     composable("schedule_list") { ScheduleListScreen(navController) }
+                    composable("github_profile") { GithubProfileScreen(navController) }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun NavigationGraph() {
-    PrakPAPBTheme{
-        val navController = rememberNavController()
-
-        NavHost(navController = navController, startDestination = "main") {
-            composable("main") { MyScreen(navController) }
-            composable("login") {
-                LoginScreen(navController = navController, onLoginSuccess = {
-                    navController.navigate("schedule_list")
-                })
-            }
-
-            composable("schedule_list") { ScheduleListScreen(navController) }
         }
     }
 }
