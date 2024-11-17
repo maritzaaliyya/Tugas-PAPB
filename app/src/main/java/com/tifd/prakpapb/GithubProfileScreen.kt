@@ -66,17 +66,6 @@ fun GithubProfileScreen(navController: NavController, username: String = "maritz
     }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Github Profile") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
-            )
-        },
         content = { paddingValues ->
             // UI to display the user profile
             Column(

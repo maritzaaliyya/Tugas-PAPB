@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
 android {
@@ -82,4 +83,11 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.material:material:1.2.0")
+    implementation ("com.google.firebase:firebase-database-ktx")
+    implementation ("androidx.compose.material3:material3:1.2.0-alpha01")
+    implementation ("androidx.room:room-runtime:2.5.0")
+    implementation ("androidx.room:room-ktx:2.5.0")
+    ksp ("androidx.room:room-compiler:2.5.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
 }

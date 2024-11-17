@@ -3,7 +3,9 @@ package com.tifd.prakpapb.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -11,17 +13,19 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material3.Typography
+import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Button
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = NeonBlue,
+    secondary = GrayBlue,
+    tertiary = DarkBlue
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = NeonBlue,
+    secondary = GrayBlue,
+    tertiary = DarkBlue
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -37,23 +41,27 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun PrakPAPBTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    // Define colors for buttons
+    val customButtonColors = ButtonDefaults.buttonColors(
+        containerColor = DarkBlue, // Set background color for button
+        contentColor = AlmostWhite // Set text color for button
+    )
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    // Define button shape
+    val customButtonShape = MaterialTheme.shapes.medium // Use medium shape from theme
 
+    // MaterialTheme with the defined button styles
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
         typography = Typography,
+        shapes = Shapes(
+            small = customButtonShape, // Apply custom button shape here
+            medium = customButtonShape,
+            large = customButtonShape
+        ),
         content = content
     )
 }

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+    <item
+        android:id="@+id/matkul"
+        android:title="Matkul"
+        android:icon="@drawable/ic_book_foreground"/>
+    <item
+        android:id="@+id/tugas"
+        android:title="Tugas"
+        android:icon="@drawable/ic_checklist_foreground"/>
+    <item
+        android:id="@+id/person"
+        android:title="Person"
+        android:icon="@drawable/ic_person_foreground"/>
 </menu>
